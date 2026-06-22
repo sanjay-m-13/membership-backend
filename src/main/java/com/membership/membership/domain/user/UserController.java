@@ -2,6 +2,7 @@ package com.membership.membership.domain.user;
 
 import java.util.List;
 
+import com.membership.membership.domain.user.dto.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,10 +16,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.membership.membership.domain.tenant.dto.TenantMapper;
-import com.membership.membership.domain.user.dto.UpdateUserRequest;
-import com.membership.membership.domain.user.dto.UserRequest;
-import com.membership.membership.domain.user.dto.UserResponse;
-import com.membership.membership.domain.user.dto.UserStatusRequest;
 
 import jakarta.validation.Valid;
 
@@ -62,4 +59,10 @@ public class UserController {
         userService.deleteUser(id);
         return new ResponseEntity<>("User deleted", HttpStatus.OK);
     }
+
+    @PostMapping("/login")
+    public ResponseEntity<String> login(@Valid @RequestBody UserLoginRequest user){
+        return new ResponseEntity<>(userService.verifyLogin(user), HttpStatus.OK);
+    }
+
 }

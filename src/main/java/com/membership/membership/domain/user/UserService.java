@@ -3,8 +3,12 @@ package com.membership.membership.domain.user;
 import java.util.List;
 import java.util.Objects;
 
+import com.membership.membership.domain.user.dto.UserLoginRequest;
 import com.membership.membership.infrastructure.security.user.UserPrincipal;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -26,6 +30,9 @@ public class UserService {
 
     @Autowired
     private TenantService tenantService;
+
+    @Autowired
+    private AuthenticationManager authManager;
 
     private BCryptPasswordEncoder bCryptEncoder = new BCryptPasswordEncoder(12);
 
@@ -85,5 +92,15 @@ public class UserService {
         userRepo.deleteById(id);
     }
 
+    public String verifyLogin(UserLoginRequest user){
+        Authentication authentication = authManager
+                .authenticate(new UsernamePasswordAuthenticationToken(user.getEmail(), user.getPassword()));
+
+        if (authentication.isAuthenticated()){
+            return "Logged in";
+        }
+
+        return "Failed to login";
+    }
 
 }
