@@ -3,6 +3,7 @@ package com.membership.membership.domain.user;
 import java.util.List;
 
 import com.membership.membership.domain.user.dto.*;
+import com.membership.membership.infrastructure.security.jwt.dto.JWTUserResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
