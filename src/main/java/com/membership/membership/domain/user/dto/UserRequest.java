@@ -1,9 +1,6 @@
 package com.membership.membership.domain.user.dto;
 
-import com.membership.membership.domain.tenant.Tenant;
 import lombok.Data;
-
-import java.time.LocalDateTime;
 
 @Data
 public class UserRequest {

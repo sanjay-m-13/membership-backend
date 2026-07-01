@@ -2,6 +2,7 @@ package com.membership.membership.domain.user;
 
 import java.time.LocalDateTime;
 
+import com.membership.membership.domain.role.Role;
 import org.hibernate.annotations.CreationTimestamp;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
@@ -43,4 +44,9 @@ public class User {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "tenant_id")
     private Tenant tenant;
+
+    @JsonBackReference
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "role_id")
+    private Role roles;
 }
